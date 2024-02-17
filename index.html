@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Name input</title>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body class="flex justify-center bg-slate-200 min-h-screen">
+    <div class="text-center bg-white h-fit p-8 mt-8 space-y-4">
+      <h1 class="text-2xl font-semibold">
+        You can increment or decrement using this application
+      </h1>
+      <p class="text-lg text-red-500">*Negative values are not accepted*</p>
+      <hr />
+      <h2 id="output" class="text-6xl">00</h2>
+      <div class="space-x-2">
+        <input
+          type="number"
+          name=""
+          id="increment-input"
+          class="p-3 border-2"
+          placeholder="0"
+          max="100"
+          min="0"
+        />
+        <button
+          class="btn bg-black text-white hover:text-black hover:font-semibold"
+          id="increment-btn"
+        >
+          Increment
+        </button>
+        <button
+          class="btn bg-black text-white hover:text-black hover:font-semibold"
+          id="decrement-btn"
+        >
+          Decrement
+        </button>
+        <input
+          type="number"
+          name=""
+          id="decrement-input"
+          class="p-3 border-2"
+          placeholder="0"
+          min="0"
+          max="100"
+        />
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+      const output = document.getElementById("output");
+      const incrementBtn = document.getElementById("increment-btn");
+      const decrementBtn = document.getElementById("decrement-btn");
+      let incrementInput = document.getElementById('increment-input');
+      let decrementInput = document.getElementById('decrement-input');
+      let totalValue = 0;
+      
+    //  Increment Input validation
+        incrementInput.addEventListener('keyup', function(e){
+            if(parseInt(e.target.value) > 100) {
+                incrementInput.value = 100;
+            } else if (parseInt(e.target.value) < 0) {
+                incrementInput.value = 0;
+            }
+        });
+    // Decrement Input validation
+        decrementInput.addEventListener('keyup', function(e){
+            if(parseInt(e.target.value) < 0) {
+                decrementInput.value = 0;
+            } else if (parseInt(e.target.value) > 100) {
+                decrementInput.value = 100
+            }
+        });
+
+    //   Increment
+      incrementBtn.addEventListener("click", function () {
+        
+        totalValue += parseInt(incrementInput.value);
+        if (totalValue >= 0 && totalValue < 10) {
+          output.innerText = `0${totalValue}`;
+        } else {
+          output.innerText = `${totalValue}`;
+        }
+      });
+
+    //   decrement
+    decrementBtn.addEventListener("click", function () {
+        const decrementInput = document.getElementById("decrement-input").value;
+        totalValue -= parseInt(decrementInput);
+        if (totalValue >= 0 && totalValue < 10) {
+          output.innerText = `0${totalValue}`;
+        } else if (totalValue < 0) {
+            output.innerText = '00';
+            alert("Result can't be negative Number");
+            totalValue = 0;
+        } else {
+            output.innerText = `${totalValue}`;            
+        }
+        
+      });
+    </script>
+  </body>
+</html>
